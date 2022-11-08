@@ -11,10 +11,8 @@ class Sensor {
   update(roadBorders) {
     this.#castRays();
     this.readings = [];
-    for (let i=0; i<this.rays.length; i++) {
-      this.readings.push(
-        this.#getReading(this.rays[i], roadBorders)
-        );
+    for (let i = 0; i < this.rays.length; i++) {
+      this.readings.push(this.#getReading(this.rays[i], roadBorders));
     }
   }
 
@@ -32,20 +30,21 @@ class Sensor {
         touches.push(touch);
       }
     }
-    
+
     if (touches.length == 0) {
       return null;
     } else {
       const offsetArray = touches.map((e) => e.offset);
       const minOffset = Math.min(...offsetArray);
-      return touches.find(e=>e.offset == minOffset);
+      return touches.find((e) => e.offset == minOffset);
     }
   }
 
   #castRays() {
     this.rays = [];
     for (let i = 0; i < this.rayCount; i++) {
-      const rayAngle = lerp(
+      const rayAngle =
+        lerp(
           this.raySpread / 2,
           -this.raySpread / 2,
           this.rayCount == 1 ? 0.5 : i / (this.rayCount - 1)
@@ -61,36 +60,24 @@ class Sensor {
 
   draw(ctx) {
     for (let i = 0; i < this.rayCount; i++) {
-      let end=this.rays[i][1];
-      
-      if(this.readings[i]){
-        end=this.readings[i];
+      let end = this.rays[i][1];
+
+      if (this.readings[i]) {
+        end = this.readings[i];
       }
-      
+
       ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.strokeStyle = "yellow";
-      ctx.moveTo(
-        this.rays[i][0].x, 
-        this.rays[i][0].y
-      );
-      ctx.lineTo(
-        end.x, 
-        end.y
-      );
+      ctx.moveTo(this.rays[i][0].x, this.rays[i][0].y);
+      ctx.lineTo(end.x, end.y);
       ctx.stroke();
 
       ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.strokeStyle = "black";
-      ctx.moveTo(
-        this.rays[i][1].x, 
-        this.rays[i][1].y
-      );
-      ctx.lineTo(
-        end.x, 
-        end.y
-      );
+      ctx.moveTo(this.rays[i][1].x, this.rays[i][1].y);
+      ctx.lineTo(end.x, end.y);
       ctx.stroke();
     }
   }

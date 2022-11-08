@@ -1,10 +1,10 @@
 body {
-    margin:0;
-    background:#7F8487;
-    overflow: hidden;
-    text-align: center;
+  margin: 0;
+  background: #7f8487;
+  overflow: hidden;
+  text-align: center;
 }
 
 canvas {
-    background: #D8D8D8;
+  background: #d8d8d8;
 }
